@@ -25,7 +25,7 @@ jobs:
       - name: Get and format diff
         id: get-diff
         if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n' || :)"
+        run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | sed '$!s/$/\\n/' | tr -d '\n' || :)"
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
