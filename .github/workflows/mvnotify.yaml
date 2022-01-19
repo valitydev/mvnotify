@@ -30,7 +30,7 @@ jobs:
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
-          echo "{\"text\": \"New packages has been deployed to Maven Central:\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`\"}" > mattermost.json
+          echo "{\"text\": \"*New packages has been deployed to Maven Central:*\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`\\nPowered by <https://github.com/valitydev/mvnotify|mvnotify>"}" > mattermost.json
       - name: Send message to Mettermost
         if: steps.get-diff.outputs.diff-message != ''
         uses: mattermost/action-mattermost-notify@1.1.0
