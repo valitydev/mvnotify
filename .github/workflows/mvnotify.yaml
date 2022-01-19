@@ -25,7 +25,7 @@ jobs:
       #   run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Get diff
         id: get-diff
-        if: steps.cache-package-tree.outputs.cache-hit == 'true'
+        # if: steps.cache-package-tree.outputs.cache-hit == 'true'
         run: echo "::set-output name=diff-result::$(diff -u package-tree-old package-tree-new)"
       - name: Format output
         id: format-output
@@ -35,11 +35,15 @@ jobs:
         if: steps.format-output.outputs.diff-message != ''
         run: |
           echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.format-output.outputs.diff-message }}\n```\"}" > mattermost.json
-      - name: Send message to Mettermost
+      - name: Show Mattermost Message
         if: steps.format-output.outputs.diff-message != ''
-        uses: mattermost/action-mattermost-notify@1.1.0
-        env:
-          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          MATTERMOST_CHANNEL: test
+        run: |
+          cat mattermost.json
+      # - name: Send message to Mettermost
+      #   if: steps.format-output.outputs.diff-message != ''
+      #   uses: mattermost/action-mattermost-notify@1.1.0
+      #   env:
+      #     MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+      #     MATTERMOST_CHANNEL: test
       # - name: Set package-tree
       #   run: mv package-tree-new package-tree-old
