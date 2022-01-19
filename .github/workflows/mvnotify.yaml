@@ -21,7 +21,7 @@ jobs:
       - name: Download packages from Maven Central
         run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
       - name: Get new package tree
-        run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+        run: tree --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Get and format diff
         id: get-diff
         if: steps.cache-package-tree.outputs.cache-hit == 'true'
