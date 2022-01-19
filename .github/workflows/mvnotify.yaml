@@ -31,15 +31,11 @@ jobs:
         if: steps.get-diff.outputs.diff-message != ''
         run: |
           echo "{\"text\": \"New packages has been deployed to Maven Central:\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`\"}" > mattermost.json
-      - name: Show Mattermost Message
+      - name: Send message to Mettermost
         if: steps.get-diff.outputs.diff-message != ''
-        run: |
-          cat mattermost.json
-      # - name: Send message to Mettermost
-      #   if: steps.format-output.outputs.diff-message != ''
-      #   uses: mattermost/action-mattermost-notify@1.1.0
-      #   env:
-      #     MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-      #     MATTERMOST_CHANNEL: test
+        uses: mattermost/action-mattermost-notify@1.1.0
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          MATTERMOST_CHANNEL: test
       # - name: Set package-tree
       #   run: mv package-tree-new package-tree-old
