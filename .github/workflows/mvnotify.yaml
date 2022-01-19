@@ -26,11 +26,14 @@ jobs:
       - name: Get diff
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        run: echo "::set-output name=diff-result::$(diff -u package-tree-old package-tree-new)"
+        run: |
+          DIFF_RESULT = $(diff -u package-tree-old package-tree-new)
+          if [-n $DIFF_RESULT]; then DIFF_RESULT = $(echo '$DIFF_RESULT' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n'); fi
+          echo "::set-output name=diff-result::DIFF_RESULT"
       - name: Format output
         id: format-output
         if: steps.get-diff.outputs.diff-result != ''
-        run: echo "::set-output name=diff-message::$(echo '${{ steps.get-diff.outputs.diff-result }}' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')"
+        run: echo '${{ steps.get-diff.outputs.diff-result }}'
       - name: Create the Mattermost Message
         if: steps.format-output.outputs.diff-message != ''
         run: |
