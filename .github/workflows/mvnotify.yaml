@@ -29,7 +29,7 @@ jobs:
         run: |
           DIFF_RESULT=$(diff -u package-tree-old package-tree-new)
           if [ -n "$DIFF_RESULT" ]; then 
-              echo "::set-output name=diff-message::$DIFF_RESULT"
+              echo $DIFF_RESULT
           fi
       - name: Format output
         id: format-output
