@@ -1,6 +1,7 @@
 name: mvnotify
 
 on:
+  pull_request:
   schedule:
     - cron: '*/5 * * * *'
 
