@@ -30,7 +30,7 @@ jobs:
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
-          echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.get-diff.outputs.diff-message }}\n```\"}" > mattermost.json
+          echo "{\"text\": \"New packages has been deployed to Maven Central:\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`\"}" > mattermost.json
       - name: Show Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
