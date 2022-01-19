@@ -26,11 +26,7 @@ jobs:
       - name: Get and format diff
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        run: |
-          DIFF_RESULT=$(diff -u package-tree-old package-tree-new || :)
-          if [ -n "$DIFF_RESULT" ]; then 
-              echo "::set-output name=diff-message::$(echo $DIFF_RESULT | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')"
-          fi
+        run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n' || :)"
       - name: Format output
         id: format-output
         run: echo '${{ steps.get-diff.outputs.diff-message }}'
