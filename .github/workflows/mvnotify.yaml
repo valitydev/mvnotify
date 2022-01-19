@@ -1,6 +1,7 @@
 name: mvnotify
 
 on:
+  pull_request:
   schedule:
     - cron: '*/5 * * * *'
 
@@ -11,7 +12,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Cache package tree
+        id: cache-package-tree
+        uses: actions/cache@v2
+        with:
+          path: package-tree-old
+          key: ${{ runner.os }}-package-tree
       - name: Download packages from Maven Central
         run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
-      - name: Get package tree
-        run: cd repo.maven.apache.org/maven2/${{ env.GROUP_ID }} && tree -d --noreport
+      - name: Get new package tree
+        run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+      - name: Get diff
+        id: get-diff
+        if: steps.cache-package-tree.outputs.cache-hit == 'true'
+        run: echo "::set-output name=diff-result::$(diff -u package-tree-old package-tree-new)"
+      - name: Format output
+        id: format-output
+        if: steps.get-diff.outputs.diff-result != ''
+        run: echo "::set-output name=diff-message::$(echo '${{ steps.get-diff.outputs.diff-result }}' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')"
+      - name: Create the Mattermost Message
+        if: steps.format-output.outputs.diff-message != ''
+        run: |
+          echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.format-output.outputs.diff-message }}\n```\"}" > mattermost.json
+      - name: Send message to Mettermost
+        if: steps.format-output.outputs.diff-message != ''
+        uses: mattermost/action-mattermost-notify@1.1.0
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          MATTERMOST_CHANNEL: test
+      - name: Set package-tree
+        run: mv package-tree-new package-tree-old
