@@ -1,0 +1,17 @@
+name: mvnotify
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+env:
+  GROUP_ID: dev/vality/
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download packages from Maven Central
+        run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
+      - name: Get package tree
+        run: cd repo.maven.apache.org/maven2/${{ env.GROUP_ID }} && tree -d --noreport
