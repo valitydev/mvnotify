@@ -21,24 +21,22 @@ jobs:
       - name: Download packages from Maven Central
         run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
       - name: Get new package tree
-        run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
-      - name: Get diff
+        run: tree --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+      - name: Get and format diff
         id: get-diff
         if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        run: echo "::set-output name=diff-result::$(diff -u package-tree-old package-tree-new)"
-      - name: Format output
-        id: format-output
-        if: steps.get-diff.outputs.diff-result != ''
-        run: echo "::set-output name=diff-message::$(echo '${{ steps.get-diff.outputs.diff-result }}' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')"
+        run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n' || :)"
       - name: Create the Mattermost Message
-        if: steps.format-output.outputs.diff-message != ''
+        if: steps.get-diff.outputs.diff-message != ''
         run: |
-          echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.format-output.outputs.diff-message }}\n```\"}" > mattermost.json
+          echo "{\"text\": \"*New packages has been deployed to Maven Central:*\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`\nPowered by <https://github.com/valitydev/mvnotify|mvnotify>\"}" > mattermost.json
       - name: Send message to Mettermost
-        if: steps.format-output.outputs.diff-message != ''
+        if: steps.get-diff.outputs.diff-message != ''
         uses: mattermost/action-mattermost-notify@1.1.0
         env:
+          MATTERMOST_USERNAME: mvnotify
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          MATTERMOST_CHANNEL: test
+          MATTERMOST_CHANNEL: ${{ secrets.MATTERMOST_CHANNEL }}
+          MATTERMOST_ICON: ${{ secrets.MATTERMOST_ICON }}
       - name: Set package-tree
         run: mv package-tree-new package-tree-old
