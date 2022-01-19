@@ -27,15 +27,12 @@ jobs:
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
         run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n' || :)"
-      - name: Format output
-        id: format-output
-        run: echo '${{ steps.get-diff.outputs.diff-message }}'
       - name: Create the Mattermost Message
-        if: steps.format-output.outputs.diff-message != ''
+        if: steps.get-diff.outputs.diff-message != ''
         run: |
-          echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.format-output.outputs.diff-message }}\n```\"}" > mattermost.json
+          echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.get-diff.outputs.diff-message }}\n```\"}" > mattermost.json
       - name: Show Mattermost Message
-        if: steps.format-output.outputs.diff-message != ''
+        if: steps.get-diff.outputs.diff-message != ''
         run: |
           cat mattermost.json
       # - name: Send message to Mettermost
