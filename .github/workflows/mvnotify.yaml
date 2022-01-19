@@ -26,7 +26,6 @@ jobs:
       - name: Get and format diff
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        shell: bash
         run: |
           DIFF_RESULT=$(diff -u package-tree-old package-tree-new)
           if [ -n "$DIFF_RESULT" ]; then 
