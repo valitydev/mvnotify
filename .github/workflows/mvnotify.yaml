@@ -23,7 +23,12 @@ jobs:
       - name: Get new package tree
         run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Get diff
+        id: get-diff
         if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        run: diff -u package-tree-old package-tree-new
+        run: echo "::set-output name=diff-result::$(diff -u package-tree-old package-tree-new)"
+      - name: Format output
+        id: format-output
+        if: steps.get-diff.outputs.diff-result != ''
+        run: echo '${{ steps.get-diff.outputs.diff-result }}' | grep '^[+-]'
       - name: Set package-tree
         run: mv package-tree-new package-tree-old
