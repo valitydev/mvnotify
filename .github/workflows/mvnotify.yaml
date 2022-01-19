@@ -27,7 +27,10 @@ jobs:
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
         run: |
-          diff -u package-tree-old package-tree-new
+          DIFF_RESULT=$(diff -u package-tree-old package-tree-new || :)
+          if [ -n "$DIFF_RESULT" ]; then 
+              echo "::set-output name=diff-message::$(echo $DIFF_RESULT | sed 1,2d | grep '^[+-]')" | sed '$!s/$/\\n/' | tr -d '\n'"
+          fi
       - name: Format output
         id: format-output
         if: steps.get-diff.outputs.diff-result != ''
