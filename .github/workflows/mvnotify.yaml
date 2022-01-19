@@ -12,19 +12,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Download packages from Maven Central
+        run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
+      - name: Get new package tree
+        run: tree --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Cache package tree
         id: cache-package-tree
         uses: actions/cache@v2
         with:
           path: package-tree-old
-          key: ${{ runner.os }}-package-tree
-      - name: Download packages from Maven Central
-        run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
-      - name: Get new package tree
-        run: tree --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+          key: ${{ runner.os }}-package-tree-${{ hashFiles('**/package-tree-new') }}
+          restore-keys: |
+            ${{ runner.os }}-package-tree-
       - name: Get and format diff
         id: get-diff
-        if: steps.cache-package-tree.outputs.cache-hit == 'true'
         run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | sed '$!s/$/\\n/' | tr -d '\n' || :)"
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
