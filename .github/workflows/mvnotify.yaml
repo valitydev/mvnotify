@@ -12,16 +12,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Cache package tree
-        id: cache-package-tree
-        uses: actions/cache@v2
-        with:
-          path: package-tree-old
-          key: ${{ runner.os }}-package-tree
-      - name: Download packages from Maven Central
-        run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
-      - name: Get new package tree
-        run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+      - uses: actions/checkout@v2
+      # - name: Cache package tree
+      #   id: cache-package-tree
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: package-tree-old
+      #     key: ${{ runner.os }}-package-tree
+      # - name: Download packages from Maven Central
+      #   run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
+      # - name: Get new package tree
+      #   run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Get diff
         id: get-diff
         if: steps.cache-package-tree.outputs.cache-hit == 'true'
@@ -40,5 +41,5 @@ jobs:
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           MATTERMOST_CHANNEL: test
-      - name: Set package-tree
-        run: mv package-tree-new package-tree-old
+      # - name: Set package-tree
+      #   run: mv package-tree-new package-tree-old
