@@ -35,7 +35,9 @@ jobs:
         if: steps.get-diff.outputs.diff-message != ''
         uses: mattermost/action-mattermost-notify@1.1.0
         env:
+          MATTERMOST_USERNAME: mvnotify
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
           MATTERMOST_CHANNEL: ${{ secrets.MATTERMOST_CHANNEL }}
+          MATTERMOST_ICON: ${{ secrets.MATTERMOST_ICON }}
       # - name: Set package-tree
       #   run: mv package-tree-new package-tree-old
