@@ -26,6 +26,7 @@ jobs:
       - name: Get diff
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
+        shell: bash
         run: |
           DIFF_RESULT = $(diff -u package-tree-old package-tree-new)
           if [-n $DIFF_RESULT]; then DIFF_RESULT = $(echo '$DIFF_RESULT' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n'); fi
