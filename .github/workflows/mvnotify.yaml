@@ -36,6 +36,6 @@ jobs:
         uses: mattermost/action-mattermost-notify@1.1.0
         env:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          MATTERMOST_CHANNEL: test
+          MATTERMOST_CHANNEL: ${{ secrets.MATTERMOST_CHANNEL }}
       # - name: Set package-tree
       #   run: mv package-tree-new package-tree-old

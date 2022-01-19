@@ -1,206 +1,202 @@
-.
-├── repo.maven.apache.org
-│   └── maven2
-│       └── dev
-│           └── vality
-│               ├── analytics-proto
-│               │   └── 1.34-0cb9659
-│               │       └── analytics-proto-1.34-0cb9659.pom
-│               ├── bender-proto
-│               │   └── 1.20-be9cdeb
-│               │       └── bender-proto-1.20-be9cdeb.pom
-│               ├── binbase-proto
-│               │   └── 1.20-4c2e11c
-│               │       └── binbase-proto-1.20-4c2e11c.pom
-│               ├── bouncer-proto
-│               │   └── 1.30-3b5927d
-│               │       └── bouncer-proto-1.30-3b5927d.pom
-│               ├── cashreg-proto
-│               │   └── 1.19-47976f7
-│               │       └── cashreg-proto-1.19-47976f7.pom
-│               ├── cds-proto
-│               │   └── 1.66-01353ce
-│               │       └── cds-proto-1.66-01353ce.pom
-│               ├── damsel
-│               │   ├── 1.538-5addc41
-│               │   │   └── damsel-1.538-5addc41.pom
-│               │   ├── 1.541-df3e38d
-│               │   │   └── damsel-1.541-df3e38d.pom
-│               │   └── 1.542-f90de6c
-│               │       └── damsel-1.542-f90de6c.pom
-│               ├── deanonimus-proto
-│               │   └── 1.23-b4ce7de
-│               │       └── deanonimus-proto-1.23-b4ce7de.pom
-│               ├── dominant-cache-proto
-│               │   └── 1.12-f68de85
-│               │       └── dominant-cache-proto-1.12-f68de85.pom
-│               ├── fault-detector-proto
-│               │   └── 1.27-365aadc
-│               │       └── fault-detector-proto-1.27-365aadc.pom
-│               ├── file-storage-proto
-│               │   └── 1.33-86bcf44
-│               │       └── file-storage-proto-1.33-86bcf44.pom
-│               ├── fistful-proto
-│               │   ├── 1.129-8c9aa31
-│               │   │   └── fistful-proto-1.129-8c9aa31.pom
-│               │   ├── 1.130-fe73a83
-│               │   │   └── fistful-proto-1.130-fe73a83.pom
-│               │   ├── 1.131-4493892
-│               │   │   └── fistful-proto-1.131-4493892.pom
-│               │   └── 1.132-ef0d767
-│               │       └── fistful-proto-1.132-ef0d767.pom
-│               ├── fistful-reporter-proto
-│               │   ├── 1.13-bce2a33
-│               │   │   └── fistful-reporter-proto-1.13-bce2a33.pom
-│               │   ├── 1.14-aa53533
-│               │   │   └── fistful-reporter-proto-1.14-aa53533.pom
-│               │   └── 1.15-5aee655
-│               │       └── fistful-reporter-proto-1.15-5aee655.pom
-│               ├── fraudbusters-notificator-proto
-│               │   └── 1.27-4907168
-│               │       └── fraudbusters-notificator-proto-1.27-4907168.pom
-│               ├── fraudbusters-proto
-│               │   └── 1.102-269908f
-│               │       └── fraudbusters-proto-1.102-269908f.pom
-│               ├── fraudbusters-warehouse-proto
-│               │   └── 1.12-afdcd48
-│               │       └── fraudbusters-warehouse-proto-1.12-afdcd48.pom
-│               ├── identdocstore-proto
-│               │   ├── 1.11-da6717f
-│               │   │   └── identdocstore-proto-1.11-da6717f.pom
-│               │   ├── 1.12-28c1533
-│               │   │   └── identdocstore-proto-1.12-28c1533.pom
-│               │   └── 1.13-a3ec1df
-│               │       └── identdocstore-proto-1.13-a3ec1df.pom
-│               ├── identification-proto
-│               │   ├── 1.10-8e215c0
-│               │   │   └── identification-proto-1.10-8e215c0.pom
-│               │   ├── 1.7-2330fac
-│               │   │   └── identification-proto-1.7-2330fac.pom
-│               │   ├── 1.8-60e790e
-│               │   │   └── identification-proto-1.8-60e790e.pom
-│               │   └── 1.9-700548b
-│               │       └── identification-proto-1.9-700548b.pom
-│               ├── java-service-dependencies
-│               │   ├── 1.0.0
-│               │   │   └── java-service-dependencies-1.0.0.pom
-│               │   ├── 1.0.1
-│               │   │   └── java-service-dependencies-1.0.1.pom
-│               │   └── 1.0.2
-│               │       └── java-service-dependencies-1.0.2.pom
-│               ├── library-parent-pom
-│               │   ├── 1.0.0
-│               │   │   └── library-parent-pom-1.0.0.pom
-│               │   ├── 1.0.1
-│               │   │   └── library-parent-pom-1.0.1.pom
-│               │   └── 1.0.2
-│               │       └── library-parent-pom-1.0.2.pom
-│               ├── limiter-proto
-│               │   ├── 1.16-69af2f7
-│               │   │   └── limiter-proto-1.16-69af2f7.pom
-│               │   └── 1.17-47dead2
-│               │       └── limiter-proto-1.17-47dead2.pom
-│               ├── machinegun-proto
-│               │   ├── 1.20-dabe508
-│               │   │   └── machinegun-proto-1.20-dabe508.pom
-│               │   └── 1.21-e4784ab
-│               │       └── machinegun-proto-1.21-e4784ab.pom
-│               ├── magista-dsl
-│               │   ├── 1.0.1
-│               │   │   └── magista-dsl-1.0.1.pom
-│               │   └── 1.0.2
-│               │       └── magista-dsl-1.0.2.pom
-│               ├── magista-proto
-│               │   └── 1.22-a79c146
-│               │       └── magista-proto-1.22-a79c146.pom
-│               ├── midgard-proto
-│               │   ├── 1.27-2159c18
-│               │   │   └── midgard-proto-1.27-2159c18.pom
-│               │   ├── 1.28-caa802e
-│               │   │   └── midgard-proto-1.28-caa802e.pom
-│               │   └── 1.29-ebe2bee
-│               │       └── midgard-proto-1.29-ebe2bee.pom
-│               ├── msgpack-proto
-│               │   └── 1.9-e8a931b
-│               │       └── msgpack-proto-1.9-e8a931b.pom
-│               ├── notification-proto
-│               │   ├── 1.14-4052c8a
-│               │   │   └── notification-proto-1.14-4052c8a.pom
-│               │   ├── 1.15-b70c861
-│               │   │   └── notification-proto-1.15-b70c861.pom
-│               │   └── 1.16-4291bc6
-│               │       └── notification-proto-1.16-4291bc6.pom
-│               ├── pathfinder-proto
-│               │   ├── 1.13-15129a4
-│               │   │   └── pathfinder-proto-1.13-15129a4.pom
-│               │   ├── 1.14-03a727c
-│               │   │   └── pathfinder-proto-1.14-03a727c.pom
-│               │   ├── 1.15-3ca3955
-│               │   │   └── pathfinder-proto-1.15-3ca3955.pom
-│               │   ├── 1.16-3f8e355
-│               │   │   └── pathfinder-proto-1.16-3f8e355.pom
-│               │   ├── 1.17-4b54e48
-│               │   │   └── pathfinder-proto-1.17-4b54e48.pom
-│               │   └── 1.18-f234e4d
-│               │       └── pathfinder-proto-1.18-f234e4d.pom
-│               ├── payout-manager-proto
-│               │   ├── 1.22-b2e84a5
-│               │   │   └── payout-manager-proto-1.22-b2e84a5.pom
-│               │   └── 1.23-5bf4fad
-│               │       └── payout-manager-proto-1.23-5bf4fad.pom
-│               ├── service-parent-pom
-│               │   ├── 1.0.0
-│               │   │   └── service-parent-pom-1.0.0.pom
-│               │   ├── 1.0.1
-│               │   │   └── service-parent-pom-1.0.1.pom
-│               │   └── 1.0.2
-│               │       └── service-parent-pom-1.0.2.pom
-│               ├── testcontainers-annotations
-│               │   └── 1.3.2
-│               │       └── testcontainers-annotations-1.3.2.pom
-│               ├── trusted-tokens-proto
-│               │   └── 1.7-6d29f86
-│               │       └── trusted-tokens-proto-1.7-6d29f86.pom
-│               ├── wb-list-proto
-│               │   └── 1.44-5dbd6d4
-│               │       └── wb-list-proto-1.44-5dbd6d4.pom
-│               └── woody
-│                   ├── libthrift
-│                   │   ├── 1.0.0
-│                   │   │   └── libthrift-1.0.0.pom
-│                   │   ├── 1.0.1
-│                   │   │   └── libthrift-1.0.1.pom
-│                   │   ├── 1.0.2
-│                   │   │   └── libthrift-1.0.2.pom
-│                   │   └── 1.0.3
-│                   │       └── libthrift-1.0.3.pom
-│                   ├── woody
-│                   │   ├── 1.0.0
-│                   │   │   └── woody-1.0.0.pom
-│                   │   ├── 1.0.1
-│                   │   │   └── woody-1.0.1.pom
-│                   │   ├── 1.0.2
-│                   │   │   └── woody-1.0.2.pom
-│                   │   └── 1.0.3
-│                   │       └── woody-1.0.3.pom
-│                   ├── woody-api
-│                   │   ├── 1.0.0
-│                   │   │   └── woody-api-1.0.0.pom
-│                   │   ├── 1.0.1
-│                   │   │   └── woody-api-1.0.1.pom
-│                   │   ├── 1.0.2
-│                   │   │   └── woody-api-1.0.2.pom
-│                   │   └── 1.0.3
-│                   │       └── woody-api-1.0.3.pom
-│                   └── woody-thrift
-│                       ├── 1.0.0
-│                       │   └── woody-thrift-1.0.0.pom
-│                       ├── 1.0.1
-│                       │   └── woody-thrift-1.0.1.pom
-│                       ├── 1.0.2
-│                       │   └── woody-thrift-1.0.2.pom
-│                       └── 1.0.3
-│                           └── woody-thrift-1.0.3.pom
-└── test1
-
-122 directories, 81 files
+repo.maven.apache.org
+└── maven2
+    └── dev
+        └── vality
+            ├── analytics-proto
+            │   └── 1.34-0cb9659
+            │       └── analytics-proto-1.34-0cb9659.pom
+            ├── bender-proto
+            │   └── 1.20-be9cdeb
+            │       └── bender-proto-1.20-be9cdeb.pom
+            ├── binbase-proto
+            │   └── 1.20-4c2e11c
+            │       └── binbase-proto-1.20-4c2e11c.pom
+            ├── bouncer-proto
+            │   └── 1.30-3b5927d
+            │       └── bouncer-proto-1.30-3b5927d.pom
+            ├── cashreg-proto
+            │   └── 1.19-47976f7
+            │       └── cashreg-proto-1.19-47976f7.pom
+            ├── cds-proto
+            │   └── 1.66-01353ce
+            │       └── cds-proto-1.66-01353ce.pom
+            ├── damsel
+            │   ├── 1.538-5addc41
+            │   │   └── damsel-1.538-5addc41.pom
+            │   ├── 1.541-df3e38d
+            │   │   └── damsel-1.541-df3e38d.pom
+            │   └── 1.542-f90de6c
+            │       └── damsel-1.542-f90de6c.pom
+            ├── deanonimus-proto
+            │   └── 1.23-b4ce7de
+            │       └── deanonimus-proto-1.23-b4ce7de.pom
+            ├── dominant-cache-proto
+            │   └── 1.12-f68de85
+            │       └── dominant-cache-proto-1.12-f68de85.pom
+            ├── fault-detector-proto
+            │   └── 1.27-365aadc
+            │       └── fault-detector-proto-1.27-365aadc.pom
+            ├── file-storage-proto
+            │   └── 1.33-86bcf44
+            │       └── file-storage-proto-1.33-86bcf44.pom
+            ├── fistful-proto
+            │   ├── 1.129-8c9aa31
+            │   │   └── fistful-proto-1.129-8c9aa31.pom
+            │   ├── 1.130-fe73a83
+            │   │   └── fistful-proto-1.130-fe73a83.pom
+            │   ├── 1.131-4493892
+            │   │   └── fistful-proto-1.131-4493892.pom
+            │   └── 1.132-ef0d767
+            │       └── fistful-proto-1.132-ef0d767.pom
+            ├── fistful-reporter-proto
+            │   ├── 1.13-bce2a33
+            │   │   └── fistful-reporter-proto-1.13-bce2a33.pom
+            │   ├── 1.14-aa53533
+            │   │   └── fistful-reporter-proto-1.14-aa53533.pom
+            │   └── 1.15-5aee655
+            │       └── fistful-reporter-proto-1.15-5aee655.pom
+            ├── fraudbusters-notificator-proto
+            │   └── 1.27-4907168
+            │       └── fraudbusters-notificator-proto-1.27-4907168.pom
+            ├── fraudbusters-proto
+            │   └── 1.102-269908f
+            │       └── fraudbusters-proto-1.102-269908f.pom
+            ├── fraudbusters-warehouse-proto
+            │   └── 1.12-afdcd48
+            │       └── fraudbusters-warehouse-proto-1.12-afdcd48.pom
+            ├── identdocstore-proto
+            │   ├── 1.11-da6717f
+            │   │   └── identdocstore-proto-1.11-da6717f.pom
+            │   ├── 1.12-28c1533
+            │   │   └── identdocstore-proto-1.12-28c1533.pom
+            │   └── 1.13-a3ec1df
+            │       └── identdocstore-proto-1.13-a3ec1df.pom
+            ├── identification-proto
+            │   ├── 1.10-8e215c0
+            │   │   └── identification-proto-1.10-8e215c0.pom
+            │   ├── 1.7-2330fac
+            │   │   └── identification-proto-1.7-2330fac.pom
+            │   ├── 1.8-60e790e
+            │   │   └── identification-proto-1.8-60e790e.pom
+            │   └── 1.9-700548b
+            │       └── identification-proto-1.9-700548b.pom
+            ├── java-service-dependencies
+            │   ├── 1.0.0
+            │   │   └── java-service-dependencies-1.0.0.pom
+            │   ├── 1.0.1
+            │   │   └── java-service-dependencies-1.0.1.pom
+            │   └── 1.0.2
+            │       └── java-service-dependencies-1.0.2.pom
+            ├── library-parent-pom
+            │   ├── 1.0.0
+            │   │   └── library-parent-pom-1.0.0.pom
+            │   ├── 1.0.1
+            │   │   └── library-parent-pom-1.0.1.pom
+            │   └── 1.0.2
+            │       └── library-parent-pom-1.0.2.pom
+            ├── limiter-proto
+            │   ├── 1.16-69af2f7
+            │   │   └── limiter-proto-1.16-69af2f7.pom
+            │   └── 1.17-47dead2
+            │       └── limiter-proto-1.17-47dead2.pom
+            ├── machinegun-proto
+            │   ├── 1.20-dabe508
+            │   │   └── machinegun-proto-1.20-dabe508.pom
+            │   └── 1.21-e4784ab
+            │       └── machinegun-proto-1.21-e4784ab.pom
+            ├── magista-dsl
+            │   ├── 1.0.1
+            │   │   └── magista-dsl-1.0.1.pom
+            │   └── 1.0.2
+            │       └── magista-dsl-1.0.2.pom
+            ├── magista-proto
+            │   └── 1.22-a79c146
+            │       └── magista-proto-1.22-a79c146.pom
+            ├── midgard-proto
+            │   ├── 1.27-2159c18
+            │   │   └── midgard-proto-1.27-2159c18.pom
+            │   ├── 1.28-caa802e
+            │   │   └── midgard-proto-1.28-caa802e.pom
+            │   └── 1.29-ebe2bee
+            │       └── midgard-proto-1.29-ebe2bee.pom
+            ├── msgpack-proto
+            │   └── 1.9-e8a931b
+            │       └── msgpack-proto-1.9-e8a931b.pom
+            ├── notification-proto
+            │   ├── 1.14-4052c8a
+            │   │   └── notification-proto-1.14-4052c8a.pom
+            │   ├── 1.15-b70c861
+            │   │   └── notification-proto-1.15-b70c861.pom
+            │   └── 1.16-4291bc6
+            │       └── notification-proto-1.16-4291bc6.pom
+            ├── pathfinder-proto
+            │   ├── 1.13-15129a4
+            │   │   └── pathfinder-proto-1.13-15129a4.pom
+            │   ├── 1.14-03a727c
+            │   │   └── pathfinder-proto-1.14-03a727c.pom
+            │   ├── 1.15-3ca3955
+            │   │   └── pathfinder-proto-1.15-3ca3955.pom
+            │   ├── 1.16-3f8e355
+            │   │   └── pathfinder-proto-1.16-3f8e355.pom
+            │   ├── 1.17-4b54e48
+            │   │   └── pathfinder-proto-1.17-4b54e48.pom
+            │   └── 1.18-f234e4d
+            │       └── pathfinder-proto-1.18-f234e4d.pom
+            ├── payout-manager-proto
+            │   ├── 1.22-b2e84a5
+            │   │   └── payout-manager-proto-1.22-b2e84a5.pom
+            │   └── 1.23-5bf4fad
+            │       └── payout-manager-proto-1.23-5bf4fad.pom
+            ├── service-parent-pom
+            │   ├── 1.0.0
+            │   │   └── service-parent-pom-1.0.0.pom
+            │   ├── 1.0.1
+            │   │   └── service-parent-pom-1.0.1.pom
+            │   └── 1.0.2
+            │       └── service-parent-pom-1.0.2.pom
+            ├── testcontainers-annotations
+            │   └── 1.3.2
+            │       └── testcontainers-annotations-1.3.2.pom
+            ├── trusted-tokens-proto
+            │   └── 1.7-6d29f86
+            │       └── trusted-tokens-proto-1.7-6d29f86.pom
+            ├── wb-list-proto
+            │   └── 1.44-5dbd6d4
+            │       └── wb-list-proto-1.44-5dbd6d4.pom
+            └── woody
+                ├── libthrift
+                │   ├── 1.0.0
+                │   │   └── libthrift-1.0.0.pom
+                │   ├── 1.0.1
+                │   │   └── libthrift-1.0.1.pom
+                │   ├── 1.0.2
+                │   │   └── libthrift-1.0.2.pom
+                │   └── 1.0.3
+                │       └── libthrift-1.0.3.pom
+                ├── woody
+                │   ├── 1.0.0
+                │   │   └── woody-1.0.0.pom
+                │   ├── 1.0.1
+                │   │   └── woody-1.0.1.pom
+                │   ├── 1.0.2
+                │   │   └── woody-1.0.2.pom
+                │   └── 1.0.3
+                │       └── woody-1.0.3.pom
+                ├── woody-api
+                │   ├── 1.0.0
+                │   │   └── woody-api-1.0.0.pom
+                │   ├── 1.0.1
+                │   │   └── woody-api-1.0.1.pom
+                │   ├── 1.0.2
+                │   │   └── woody-api-1.0.2.pom
+                │   └── 1.0.3
+                │       └── woody-api-1.0.3.pom
+                └── woody-thrift
+                    ├── 1.0.0
+                    │   └── woody-thrift-1.0.0.pom
+                    ├── 1.0.1
+                    │   └── woody-thrift-1.0.1.pom
+                    ├── 1.0.2
+                    │   └── woody-thrift-1.0.2.pom
+                    └── 1.0.3
+                        └── woody-thrift-1.0.3.pom
