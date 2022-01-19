@@ -29,8 +29,8 @@ jobs:
         shell: bash
         run: |
           DIFF_RESULT=$(diff -u package-tree-old package-tree-new)
-          if [-n $DIFF_RESULT]; then 
-            echo "::set-output name=diff-result::$(echo $DIFF_RESULT | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')";
+          if [ -n "$DIFF_RESULT" ]; then 
+              echo "::set-output name=diff-message::$(echo $DIFF_RESULT | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')"
           fi
       - name: Format output
         id: format-output
