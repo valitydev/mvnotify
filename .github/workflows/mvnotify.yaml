@@ -12,7 +12,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Cache package tree
+        id: cache-package-tree
+        uses: actions/cache@v2
+        with:
+          path: package-tree-old
+          key: ${{ runner.os }}-package-tree
       - name: Download packages from Maven Central
         run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
-      - name: Get package tree
-        run: cd repo.maven.apache.org/maven2/${{ env.GROUP_ID }} && tree -d --noreport
+      - name: Get new package tree
+        run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+      - name: Get diff
+        if: steps.cache-package-tree.outputs.cache-hit == 'true'
+        run: git diff --unified=0 package-tree-old package-tree-new -U0 --color | grep '^\e\[[^m]*m[-+]' | grep -Ev '(--- a/|\+\+\+ b/)'
+      - name: Set package-tree
+        run: mv package-tree-new package-tree-old
