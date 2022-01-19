@@ -29,6 +29,16 @@ jobs:
       - name: Format output
         id: format-output
         if: steps.get-diff.outputs.diff-result != ''
-        run: echo '${{ steps.get-diff.outputs.diff-result }}' | grep '^[+-]'
+        run: echo "::set-output name=diff-message::$(echo '${{ steps.get-diff.outputs.diff-result }}' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')"
+      - name: Create the Mattermost Message
+        if: steps.format-output.outputs.diff-message != ''
+        run: |
+          echo "{\"text\": \"New packages has been deployed to Maven Central:\n```diff\n${{ steps.format-output.outputs.diff-message }}\n```\"}" > mattermost.json
+      - name: Send message to Mettermost
+        if: steps.format-output.outputs.diff-message != ''
+        uses: mattermost/action-mattermost-notify@1.1.0
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+          MATTERMOST_CHANNEL: test
       - name: Set package-tree
         run: mv package-tree-new package-tree-old
