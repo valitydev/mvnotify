@@ -33,7 +33,6 @@ jobs:
           fi
       - name: Format output
         id: format-output
-        if: steps.get-diff.outputs.diff-message != ''
         run: echo '${{ steps.get-diff.outputs.diff-message }}'
       - name: Create the Mattermost Message
         if: steps.format-output.outputs.diff-message != ''
