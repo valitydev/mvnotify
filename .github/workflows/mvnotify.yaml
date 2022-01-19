@@ -23,14 +23,15 @@ jobs:
       #   run: wget --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
       # - name: Get new package tree
       #   run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
-      - name: Get diff
+      - name: Get and format diff
         id: get-diff
         # if: steps.cache-package-tree.outputs.cache-hit == 'true'
         shell: bash
         run: |
-          DIFF_RESULT = $(diff -u package-tree-old package-tree-new)
-          if [-n $DIFF_RESULT]; then DIFF_RESULT = $(echo '$DIFF_RESULT' | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n'); fi
-          echo "::set-output name=diff-result::DIFF_RESULT"
+          DIFF_RESULT=$(diff -u package-tree-old package-tree-new)
+          if [-n $DIFF_RESULT]; then 
+            echo "::set-output name=diff-result::$(echo $DIFF_RESULT | sed 1,2d | grep '^[+-]' | sed '$!s/$/\\n/' | tr -d '\n')";
+          fi
       - name: Format output
         id: format-output
         if: steps.get-diff.outputs.diff-result != ''
