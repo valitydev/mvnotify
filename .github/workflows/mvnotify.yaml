@@ -24,6 +24,6 @@ jobs:
         run: tree -d --noreport repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Get diff
         if: steps.cache-package-tree.outputs.cache-hit == 'true'
-        run: diff -u package-tree-old package-tree-new | grep '^[+-]'
+        run: diff -u package-tree-old package-tree-new
       - name: Set package-tree
         run: mv package-tree-new package-tree-old
