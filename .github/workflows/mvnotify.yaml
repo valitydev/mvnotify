@@ -25,6 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-package-tree-
       - name: Get and format diff
+        if: steps.cache-package-tree.outputs.cache-hit == 'false'
         id: get-diff
         run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | sed '$!s/$/\\n/' | tr -d '\n' || :)"
       - name: Create the Mattermost Message
