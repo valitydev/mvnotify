@@ -13,9 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download packages from Maven Central
-        run: wget -q --user-agent=Mozilla/5.0 -e robots=off -r -p --no-parent -A pom https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
+        run: |
+          wget \
+            -q \
+            --user-agent=Mozilla/5.0 \
+            -e robots=off \
+            -r \
+            -p \
+            --no-parent \
+            -A pom \
+            https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
       - name: Get new package tree
-        run: tree --noreport --sort=version repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+        run: |
+          tree \
+            --noreport \
+            --sort=version \
+            repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Cache package tree
         id: cache-package-tree
         uses: actions/cache@v2
@@ -27,11 +40,51 @@ jobs:
       - name: Get and format diff
         if: steps.cache-package-tree.outputs.cache-hit == 'false'
         id: get-diff
-        run: echo "::set-output name=diff-message::$(diff -u package-tree-old package-tree-new | sed 1,2d | sed '$!s/$/\\n/' | tr -d '\n' || :)"
+        run: |
+          DIFF=$(
+              diff \
+                -u \
+                package-tree-old package-tree-new | \
+                sed 1,2d | \
+                sed '$!s/$/\\n/' | \
+                tr -d '\n' || :
+          )
+          echo "::set-output name=diff-message::$DIFF"
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
-          echo "{\"text\": \"*New packages has been deployed to Maven Central:*\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`\nPowered by <https://github.com/valitydev/mvnotify|mvnotify>\"}" > mattermost.json
+          cat <<EOF > mattermost.json
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*New packages has been deployed to Maven Central:*"
+                }
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`"
+                }
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "Powered by <https://github.com/valitydev/mvnotify|mvnotify>"
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
       - name: Send message to Mattermost
         if: steps.get-diff.outputs.diff-message != ''
         uses: mattermost/action-mattermost-notify@1.1.0
