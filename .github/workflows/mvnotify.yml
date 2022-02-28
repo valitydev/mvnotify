@@ -53,6 +53,10 @@ jobs:
                 tr -d '\n' || :
           )
           echo "::set-output name=diff-message::$DIFF"
+      - name: Get latest tag
+        if: steps.get-diff.outputs.diff-message != ''
+        id: latest-tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
@@ -63,7 +67,7 @@ jobs:
                 "title": "New packages has been deployed to Maven Central:",
                 "text": "\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`",
                 "footer_icon": "${{ secrets.MATTERMOST_ICON }}",
-                "footer": "mvnotify ${GITHUB_REF##*/}"
+                "footer": "mvnotify ${{ steps.latest-tag.outputs.tag }}"
               }
             ]
           }
