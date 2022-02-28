@@ -9,3 +9,5 @@ on:
 jobs:
   tag-action:
     uses: valitydev/base-workflows/.github/workflows/auto-tag.yml@v1
+    with:
+      disable-additional-tags: true
