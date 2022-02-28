@@ -56,32 +56,11 @@ jobs:
         run: |
           cat <<EOF > mattermost.json
           {
-            "blocks": [
+            "text": "*New packages has been deployed to Maven Central:*\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`",
+            "attachments": [
               {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*New packages has been deployed to Maven Central:*"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`"
-                }
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "context",
-                "elements": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "Powered by <https://github.com/valitydev/mvnotify|mvnotify>"
-                  }
-                ]
+                "footer_icon": "${{ secrets.MATTERMOST_ICON }}",
+                "footer": "Powered by <https://github.com/valitydev/mvnotify|mvnotify>"
               }
             ]
           }
