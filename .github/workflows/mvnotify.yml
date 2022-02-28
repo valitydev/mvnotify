@@ -1,7 +1,6 @@
 name: mvnotify
 
 on:
-  pull_request:
   schedule:
     - cron: '*/5 * * * *'
 
@@ -9,9 +8,12 @@ env:
   GROUP_ID: dev/vality/
 
 jobs:
-  build:
+  notify:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Download packages from Maven Central
         run: |
           wget \
@@ -50,37 +52,21 @@ jobs:
                 tr -d '\n' || :
           )
           echo "::set-output name=diff-message::$DIFF"
+      - name: Get latest tag
+        if: steps.get-diff.outputs.diff-message != ''
+        id: latest-tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
       - name: Create the Mattermost Message
         if: steps.get-diff.outputs.diff-message != ''
         run: |
           cat <<EOF > mattermost.json
           {
-            "blocks": [
+            "attachments": [
               {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*New packages has been deployed to Maven Central:*"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`"
-                }
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "context",
-                "elements": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "Powered by <https://github.com/valitydev/mvnotify|mvnotify>"
-                  }
-                ]
+                "title": "New packages has been deployed to Maven Central:",
+                "text": "\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`",
+                "footer_icon": "${{ secrets.MATTERMOST_ICON }}",
+                "footer": "mvnotify ${{ steps.latest-tag.outputs.tag }}"
               }
             ]
           }
