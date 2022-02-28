@@ -71,8 +71,6 @@ jobs:
             ]
           }
           EOF
-      - name: Debug message
-        run: cat mattermost.json
       - name: Send message to Mattermost
         if: steps.get-diff.outputs.diff-message != ''
         uses: mattermost/action-mattermost-notify@1.1.0
