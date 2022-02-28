@@ -60,7 +60,7 @@ jobs:
               {
                 "text": "*New packages has been deployed to Maven Central:*\n\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`",
                 "footer_icon": "${{ secrets.MATTERMOST_ICON }}",
-                "footer": "Powered by <https://github.com/valitydev/mvnotify|mvnotify>"
+                "footer": "Powered by [mvnotify](https://github.com/valitydev/mvnotify)"
               }
             ]
           }
