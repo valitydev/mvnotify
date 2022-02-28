@@ -9,10 +9,12 @@ env:
   GROUP_ID: dev/vality/
 
 jobs:
-  build:
+  notify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       # - name: Download packages from Maven Central
       #   run: |
       #     wget \
@@ -61,7 +63,7 @@ jobs:
                 "title": "New packages has been deployed to Maven Central:",
                 "text": "\`\`\`diff\n${{ steps.get-diff.outputs.diff-message }}\n\`\`\`",
                 "footer_icon": "${{ secrets.MATTERMOST_ICON }}",
-                "footer": "mvnotify"
+                "footer": "mvnotify ${GITHUB_REF##*/}"
               }
             ]
           }
