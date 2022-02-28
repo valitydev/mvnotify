@@ -12,33 +12,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Download packages from Maven Central
-        run: |
-          wget \
-            -q \
-            --user-agent=Mozilla/5.0 \
-            -e robots=off \
-            -r \
-            -p \
-            --no-parent \
-            -A pom \
-            https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
-      - name: Get new package tree
-        run: |
-          tree \
-            --noreport \
-            --sort=version \
-            repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
-      - name: Cache package tree
-        id: cache-package-tree
-        uses: actions/cache@v2
-        with:
-          path: package-tree-old
-          key: ${{ runner.os }}-package-tree-${{ hashFiles('**/package-tree-new') }}
-          restore-keys: |
-            ${{ runner.os }}-package-tree-
+      # - name: Download packages from Maven Central
+      #   run: |
+      #     wget \
+      #       -q \
+      #       --user-agent=Mozilla/5.0 \
+      #       -e robots=off \
+      #       -r \
+      #       -p \
+      #       --no-parent \
+      #       -A pom \
+      #       https://repo.maven.apache.org/maven2/${{ env.GROUP_ID }}
+      # - name: Get new package tree
+      #   run: |
+      #     tree \
+      #       --noreport \
+      #       --sort=version \
+      #       repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
+      # - name: Cache package tree
+      #   id: cache-package-tree
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: package-tree-old
+      #     key: ${{ runner.os }}-package-tree-${{ hashFiles('**/package-tree-new') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-package-tree-
       - name: Get and format diff
-        if: steps.cache-package-tree.outputs.cache-hit == 'false'
+        # if: steps.cache-package-tree.outputs.cache-hit == 'false'
         id: get-diff
         run: |
           DIFF=$(
@@ -85,13 +85,15 @@ jobs:
             ]
           }
           EOF
+      - name: Debug message
+        run: cat mattermost.json
       - name: Send message to Mattermost
         if: steps.get-diff.outputs.diff-message != ''
         uses: mattermost/action-mattermost-notify@1.1.0
         env:
           MATTERMOST_USERNAME: mvnotify
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
-          MATTERMOST_CHANNEL: ${{ secrets.MATTERMOST_CHANNEL }}
+          MATTERMOST_CHANNEL: test
           MATTERMOST_ICON: ${{ secrets.MATTERMOST_ICON }}
       - name: Set package-tree
         run: mv package-tree-new package-tree-old
