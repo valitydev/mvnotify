@@ -52,7 +52,7 @@ jobs:
                 sed '$!s/$/\\n/' | \
                 tr -d '\n' || :
           )
-          echo "::set-output name=diff-message::$DIFF"
+          echo "diff-message=$DIFF" >> $GITHUB_OUTPUT
       - name: Get latest tag
         if: steps.get-diff.outputs.diff-message != ''
         id: latest-tag
