@@ -34,7 +34,7 @@ jobs:
             repo.maven.apache.org/maven2/${{ env.GROUP_ID }} > package-tree-new
       - name: Cache package tree
         id: cache-package-tree
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: package-tree-old
           key: ${{ runner.os }}-package-tree-${{ hashFiles('**/package-tree-new') }}
