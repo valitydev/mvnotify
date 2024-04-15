@@ -74,7 +74,7 @@ jobs:
           EOF
       - name: Send message to Mattermost
         if: steps.get-diff.outputs.diff-message != ''
-        uses: mattermost/action-mattermost-notify@1.1.0
+        uses: mattermost/action-mattermost-notify@2.0.0
         env:
           MATTERMOST_USERNAME: mvnotify
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
